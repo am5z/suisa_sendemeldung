@@ -27,7 +27,7 @@
 #
 %global srcname suisa_sendemeldung
 
-%{?el7:%global python3_pkgversion 34}
+%{?el7:%global python3_pkgversion 36}
 
 Name:           %{srcname}
 Version:        master
@@ -48,6 +48,7 @@ BuildRequires:  python3-devel
 BuildRequires:  systemd
 Requires(pre):  shadow-utils
 Requires:       python%{python3_pkgversion}-configargparse
+Requires:       python%{python3_pkgversion}-pytz
 Requires:       python%{python3_pkgversion}-requests
 %{?python_enable_dependency_generator}
 
@@ -73,9 +74,6 @@ install -d %{buildroot}%{_sysconfdir}
 install etc/%{srcname}.conf %{buildroot}%{_sysconfdir}
 install -d %{buildroot}%{_sysconfdir}/sysconfig
 install etc/sysconfig/%{srcname} %{buildroot}%{_sysconfdir}/sysconfig
-
-%check
-%{__python3} setup.py test
 
 %pre
 getent group %{srcname} >/dev/null || groupadd -r %{srcname}
